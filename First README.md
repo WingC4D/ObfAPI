@@ -19,7 +19,7 @@ This module provides a framework for obfuscating a binary payload into multiple 
 
 - **Multi-Schema Obfuscation**: Implemented encoding schemas for IPv4, IPv6, and MAC addresses.
     
-- **Custom Padding Algorithm**: To better understand data manipulation, I designed a custom, data-dependent padding algorithm. This was an exercise in creating a reversible process to obscure payload metadata, presenting a greater challenge to analysis than a simple '\0' / NOP-padding.
+- **Custom Padding Algorithm**: To better understand data manipulation, I designed a custom, data-dependent padding algorithm. This was an exercise in creating a reversible process to obscure payload metadata, presenting a greater challenge to analysis than a simple `'\0'` / `NOP`-padding.
     
 - **A Study in Deobfuscation Trade-offs**: For each schema, the module provides two deobfuscation implementations to explore the crucial trade-off between stealth and portability:
     
