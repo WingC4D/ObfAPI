@@ -23,9 +23,9 @@ This module provides a framework for obfuscating a binary payload into multiple 
     
 - **A Study in Deobfuscation Trade-offs**: For each schema, the module provides two deobfuscation implementations to explore the crucial trade-off between stealth and portability:
     
-    - **"Living off the Land" (Windows):** A stealth-oriented approach using undocumented NTAPI functions (`Rtl...StringToAddress`) meant to minimize the tool's fingerprint on Windows systems.
+    - **"Living off the Land" (Windows):** A stealth-oriented approach using undocumented NTAPI functions (`Rtl...StringToAddress`) meant to minimize the tool's fingerprint on Windows systems.
         
-    - **Portable C Implementation:** A self-contained, high-performance version built with no OS-specific dependencies, designed to be compatible across different platforms.
+    - **Portable C Implementation:** A self-contained, high-performance version built with no OS-specific dependencies, designed to be compatible across different platforms.
         
 - **API Design**: The framework is built around a reusable API with a focus on type safety and clear `IN`/`OUT` parameters to facilitate easier integration and testing.
     
