@@ -45,6 +45,12 @@ boolean PadUpPayload
 	IN	   unsigned short  IPv
 );
 
+void FreePayloadArray
+(
+	IN     unsigned char** pPayload_arr[],
+	IN     size_t          sPayloadAssumedSize
+);
+
 boolean ObfuscatePayloadMAC
 (
 	IN  unsigned char  *pPayload,
