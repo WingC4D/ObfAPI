@@ -110,7 +110,7 @@ boolean DeobfuscatePayloadMAC
 boolean DeobfuscatePayloadIPv4
 (
 	OUT unsigned char  *pClearPayload[],
-	IN  unsigned char **pObfuscatedPayload,
+	IN  unsigned char  *pObfuscatedPayload,
 	IN  size_t          sObfuscatedPayloadSize,
 	OUT size_t         *sClearPayloadSize,
 	IN  unsigned char   ucPaddedBytes
@@ -127,7 +127,7 @@ unsigned char DecimalToByte
 boolean DeobfuscatePayloadIPv6
 (
 	OUT    unsigned char  *pClearPayload[],
-	IN     unsigned char **pObfuscatedPayloadArray,
+	IN     unsigned char  *pObfuscatedPayloadArray[],
 	IN     size_t          sObfuscatedPayloadSize,
 	OUT    size_t         *sClearPayloadSize,
 	IN     unsigned char   ucPaddedBytes
@@ -137,6 +137,3 @@ unsigned  char HexToChar
 (
 	IN unsigned char candidate
 );
-
-
-
