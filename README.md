@@ -33,7 +33,7 @@ This module provides a framework for obfuscating a binary payload into multiple 
     
 ---
 ### **Personal Learning Goals**
-- This project was a significant part of my journey in learning C since January. It pushed me to master difficult concepts like multi-level pointer manipulation, robust memory management, and clean API design. It serves as a tangible result of the incredible instruction provided by Boot.Dev & Maldev Academy,  respectively, and the inspiration drawn from the real-world work of security researchers.
+- This project was a significant part of my journey in learning Programming (Python) since January and starting to program with C in April. It pushed me to master difficult concepts like multi-level pointer manipulation, robust memory management, and clean API design. It serves as a tangible result of the incredible instruction provided by Boot.Dev & Maldev Academy,  respectively, and the inspiration drawn from the real-world work of security researchers.
 
 ---
 #### **Future Improvements & Known Limitations**
