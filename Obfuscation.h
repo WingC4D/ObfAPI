@@ -1,145 +1,171 @@
 #pragma once
-#include <Windows.h>
+#if defined(_WIN32)
+#include "Windows.h"
+#endif
 #include <stdio.h>
 
-#define CRT_SECURE_NO_WARNINGS
-#define  IPv4   4   
-#define  MAC    6
-#define  IPv6   16
+#define  CRT_SECURE_NO_WARNINGS
+#define  MACSPACER            3
+#define  IPv4                 4   
+#define  IPv6SPACER           5
+#define  MAC                  6
+#define  IPv6                16
+#define  MACArr              18
+#define  IPv4Arr             17
+#define  IPv6Arr             40
+#define  HEX                 16
+#define  DECIMAL             10
 
+#ifndef _WIN32
+
+typedef bool BOOLEAN;
+typedef void VOID;
+
+#endif
+
+typedef unsigned char  Uchar;
+
+typedef unsigned char *pUchar;
+
+typedef unsigned short Ushort;
+
+#ifdef WIN32
 typedef NTSTATUS(NTAPI *fnRtlIpv4StringToAddressA)
 (
-	IN  PCSTR		S,
-	IN  BOOLEAN		Strict,
-	IN  PCSTR      *Terminator,
-	IN  PVOID		Addr
+	       PCSTR   S,
+	       BOOLEAN Strict,
+	       PCSTR  *Terminator,
+	       PVOID   Addr
 );
 
 typedef NTSTATUS(NTAPI* fnRtlIpv6StringToAddressA)(
-	PCSTR		S,
-	PCSTR* Terminator,
-	PVOID		Addr
+           PCSTR  S,
+	       PCSTR *Terminator,
+	       PVOID  Addr
 );
 
 typedef NTSTATUS(NTAPI* fnRtlEthernetStringToAddressA)
 (
-	IN  PCSTR  S,
-	IN  PCSTR *Terminator,
-	IN  PVOID  Addr
-);
-
-boolean PadDownPayload
-(
-	IN OUT unsigned char **pPayload,
-	IN     size_t          sPaddedSize,
-	IN     unsigned short  usPaddingAmount,
-	IN     unsigned char   IPv
-);
-
-boolean PadUpPayload
-(
-	IN OUT unsigned char **pPayload,
-	OUT    size_t         *sNewPayloadSize,
-	IN     size_t          sOldPayloadSize,
-	IN     unsigned short  usModulusMinusRemainder,
-	IN	   unsigned short  IPv
-);
-
-void FreePayloadArray
-(
-	IN     unsigned char** pPayload_arr[],
-	IN     size_t          sPayloadAssumedSize
-);
-
-boolean ObfuscatePayloadMAC
-(
-	IN  unsigned char  *pPayload,
-	OUT unsigned char **pObfuscatedPayload[],
-	IN  size_t          sOriginalPayloadSize,
-	OUT size_t         *sPaddedPayloadSize,
-	OUT size_t         *sObfuscatedPayloadSize
+	       PCSTR  S,
+	       PCSTR *Terminator,
+	       PVOID  Addr
 );
 
 BOOLEAN RtlMacToStrA
 (
-	IN CHAR* MacArray[],
-	IN SIZE_T NmbrOfElements,
-	IN  UCHAR   ucPaddedBytes,
-	OUT PBYTE* ppDAddress,
-	OUT SIZE_T* pDSize
-);
-
-boolean ObfuscatePayloadIPv4(
-	IN     unsigned char  *pPayload,
-	OUT    unsigned char **pObfuscatedPayload[],
-	IN     size_t          sOriginalPayloadSize,
-	OUT    size_t         *sPaddedPayloadSize,
-	OUT    size_t         *sObfuscatedPayload
+	IN     PCHAR   MacArray[],
+	IN     SIZE_T  NmbrOfElements,
+	IN     UCHAR   ucPaddedBytes,
+	   OUT PBYTE  *ppDAddress,
+	   OUT SIZE_T *pDSize
 );
 
 BOOLEAN RtlIpv4toStrA
 (
-	IN  PCHAR   Ipv4Array[],
-	IN  SIZE_T  NmbrOfElements,
-	IN  UCHAR   ucPaddedBytes,
-	OUT PBYTE* pClearPayloadAddress,
-	OUT PSIZE_T psClearPayloadSize
-);
-
-boolean ObfuscatePayloadIPv6
-(
-	IN     unsigned char  *pPayload,
-	OUT    unsigned char **pOfusctedPayloadArray[],
-	IN     size_t          sOriginalPayloadSize,
-	OUT    size_t         *sPaddedPayloadSize,
-	OUT    size_t         *sObfuscatedPayloadSize
+	IN     PCHAR   Ipv4Array[],
+	IN     SIZE_T  NmbrOfElements,
+	IN     UCHAR   ucPaddedBytes,
+	   OUT PBYTE* pClearPayloadAddress,
+	   OUT PSIZE_T psClearPayloadSize
 );
 
 BOOLEAN RtlIpv6ToStrA
 (
-	IN  CHAR   *Ipv6AddressesArray[],
-	IN  SIZE_T  NmbrOfElements,
-	IN  UCHAR   ucPaddedBytes,
-	OUT PBYTE  *pCleanPayloadAddress,
-	OUT PSIZE_T pClearPayloadSize
+	IN     CHAR   *Ipv6AddressesArray[],
+	IN     SIZE_T  NmbrOfElements,
+	IN     UCHAR   ucPaddedBytes,
+	   OUT PBYTE  *pCleanPayloadAddress,
+	   OUT PSIZE_T pClearPayloadSize
 );
 
-boolean DeobfuscatePayloadMAC
+#endif
+
+BOOLEAN PadDownPayload
 (
-	OUT unsigned char** pClearPayloadAddress,
-	IN  unsigned char* pObfuscatedPayloadArray[],
-	IN  size_t          sObfuscatedPayloadSize,
-	OUT size_t* sClearPayloadSize,
-	IN  unsigned char   ucPaddedBytes
+	IN OUT pUchar *pPayload,
+	IN     size_t  sPaddedSize,
+	IN     Uchar   usPaddingAmount,
+	IN     Uchar   IPv
 );
 
-boolean DeobfuscatePayloadIPv4
+BOOLEAN PadUpPayload
 (
-	OUT unsigned char  *pClearPayload[],
-	IN  unsigned char  *pObfuscatedPayload,
-	IN  size_t          sObfuscatedPayloadSize,
-	OUT size_t         *sClearPayloadSize,
-	IN  unsigned char   ucPaddedBytes
+	IN OUT pUchar *pPayload,
+	   OUT size_t *sNewPayloadSize,
+	IN     size_t  sOldPayloadSize,
+	IN     Uchar   usModulusMinusRemainder,
+	IN	   Uchar   IPv
 );
 
-unsigned char DecimalToByte
+VOID FreePayloadArray
 (
-	OUT unsigned char *pClearAddress,
-	IN  unsigned char *Address,
-	IN  short          OrderOfMagnitudeTracker
+	IN     pUchar *pPayload_arr[],
+	IN     size_t  sPayloadAssumedSize
+);
+
+BOOLEAN ObfuscatePayloadMAC
+(
+	IN     pUchar  pPayload,
+	   OUT pUchar *pObfuscatedPayloadArray[],
+	IN     size_t  sOriginalPayloadSize,
+	   OUT size_t *sPaddedPayloadSize,
+	   OUT size_t *sObfuscatedPayloadSize
+);
+
+BOOLEAN ObfuscatePayloadIPv4
+(
+	IN     pUchar  pPayload,
+	   OUT pUchar *pObfuscatedPayloadArray[],
+	IN     size_t  sOriginalPayloadSize,
+	   OUT size_t *sPaddedPayloadSize,
+	   OUT size_t *sObfuscatedPayload
+);
+
+BOOLEAN ObfuscatePayloadIPv6
+(
+	IN     pUchar  pPayload,
+	   OUT pUchar *pObfuscatedPayloadArray[],
+	IN     size_t  sOriginalPayloadSize,
+	   OUT size_t *sPaddedPayloadSize,
+	   OUT size_t *sObfuscatedPayloadSize
+);
+
+BOOLEAN DeobfuscatePayloadMAC
+(
+	   OUT pUchar *pClearPayloadAddress,
+	IN     pUchar  pObfuscatedPayloadArray[],
+	IN     size_t  sObfuscatedPayloadSize,
+	   OUT size_t *sClearPayloadSize,
+	IN     Uchar   ucPaddedBytes
+);
+
+BOOLEAN DeobfuscatePayloadIPv4
+(
+	   OUT pUchar *pClearPayload,
+	IN     pUchar  pObfuscatedPayload[],
+	IN     size_t  sObfuscatedPayloadSize,
+	   OUT size_t *sClearPayloadSize,
+	IN     Uchar   ucPaddedBytes
+);
+
+Uchar DecimalToByte
+(
+	   OUT pUchar pClearAddress,
+	IN     pUchar Address,
+	IN     short  OrderOfMagnitudeTracker
 );
 
 
-boolean DeobfuscatePayloadIPv6
+BOOLEAN DeobfuscatePayloadIPv6
 (
-	OUT    unsigned char  *pClearPayload[],
-	IN     unsigned char  *pObfuscatedPayloadArray[],
-	IN     size_t          sObfuscatedPayloadSize,
-	OUT    size_t         *sClearPayloadSize,
-	IN     unsigned char   ucPaddedBytes
+	   OUT pUchar *pClearPayload,
+	IN     pUchar  pObfuscatedPayloadArray[],
+	IN     size_t  sObfuscatedPayloadSize,
+	   OUT size_t *sClearPayloadSize,
+	IN     Uchar   ucPaddedBytes
 );
 
-unsigned  char HexToChar
+Uchar HexToChar
 (
-	IN unsigned char candidate
+	IN    Uchar candidate
 );
